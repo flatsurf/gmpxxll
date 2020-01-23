@@ -1,0 +1,123 @@
+{
+    "Benchmarks.track_FromInt": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromInt",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_FromLongLong_0": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromLongLong_0",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_FromLongLong_10": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromLongLong_10",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_FromLongLong_30": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromLongLong_30",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_FromLongLong_40": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromLongLong_40",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_FromLongLong_60": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_FromLongLong_60",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToInt": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToInt",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToLongLong_0": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToLongLong_0",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToLongLong_10": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToLongLong_10",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToLongLong_30": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToLongLong_30",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToLongLong_40": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToLongLong_40",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "Benchmarks.track_ToLongLong_60": {
+        "code": "def asv_method(self, t=time): return t",
+        "name": "Benchmarks.track_ToLongLong_60",
+        "param_names": [],
+        "params": [],
+        "timeout": 60.0,
+        "type": "track",
+        "unit": "ns",
+        "version": "95504a3a7767fc6ea8c8805b5e5bf9157a3a0b5f0c0fda6bf99e361d0bb4b107"
+    },
+    "version": 2
+}
