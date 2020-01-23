@@ -1,0 +1,5 @@
+.deps
+*.o
+*.trs
+*.log
+mpz_class
