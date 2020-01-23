@@ -10,18 +10,9 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      osx_target_benchmark:
-        CONFIG: osx_target_benchmark
-        UPLOAD_PACKAGES: False
-      osx_target_coverage:
-        CONFIG: osx_target_coverage
-        UPLOAD_PACKAGES: False
       osx_target_release:
         CONFIG: osx_target_release
         UPLOAD_PACKAGES: True
-      osx_target_style:
-        CONFIG: osx_target_style
-        UPLOAD_PACKAGES: False
       osx_target_test:
         CONFIG: osx_target_test
         UPLOAD_PACKAGES: False

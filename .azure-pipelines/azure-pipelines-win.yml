@@ -10,42 +10,18 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
-      win_cxx_compiler_vs2008_target_benchmark:
-        CONFIG: win_cxx_compiler_vs2008_target_benchmark
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compiler_vs2008_target_coverage:
-        CONFIG: win_cxx_compiler_vs2008_target_coverage
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
       win_cxx_compiler_vs2008_target_release:
         CONFIG: win_cxx_compiler_vs2008_target_release
         CONDA_BLD_PATH: D:\\bld\\
         UPLOAD_PACKAGES: True
-      win_cxx_compiler_vs2008_target_style:
-        CONFIG: win_cxx_compiler_vs2008_target_style
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
       win_cxx_compiler_vs2008_target_test:
         CONFIG: win_cxx_compiler_vs2008_target_test
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compiler_vs2015_target_benchmark:
-        CONFIG: win_cxx_compiler_vs2015_target_benchmark
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compiler_vs2015_target_coverage:
-        CONFIG: win_cxx_compiler_vs2015_target_coverage
         CONDA_BLD_PATH: D:\\bld\\
         UPLOAD_PACKAGES: False
       win_cxx_compiler_vs2015_target_release:
         CONFIG: win_cxx_compiler_vs2015_target_release
         CONDA_BLD_PATH: D:\\bld\\
         UPLOAD_PACKAGES: True
-      win_cxx_compiler_vs2015_target_style:
-        CONFIG: win_cxx_compiler_vs2015_target_style
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
       win_cxx_compiler_vs2015_target_test:
         CONFIG: win_cxx_compiler_vs2015_target_test
         CONDA_BLD_PATH: D:\\bld\\
