@@ -77,7 +77,7 @@ class mpz_class : public ::mpz_class {
     return *this;
   }
 
-  explicit operator long long() const {
+  long long get_sll() const {
     if (mpz_fits_sint_p(get_mpz_t()))
       return mpz_get_si(get_mpz_t());
     if (*this >= mpz_class(std::numeric_limits<long long>::min()) && *this <= mpz_class(std::numeric_limits<long long>::max())) {
@@ -90,7 +90,7 @@ class mpz_class : public ::mpz_class {
     throw std::out_of_range("value does not fit into a long long");
   }
 
-  explicit operator unsigned long long() const {
+  unsigned long long get_ull() const {
     if (mpz_fits_uint_p(get_mpz_t()))
       return mpz_get_ui(get_mpz_t());
     if (*this >= 0 && *this <= mpz_class(std::numeric_limits<unsigned long long>::max())) {

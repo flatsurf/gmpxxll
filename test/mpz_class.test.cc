@@ -31,7 +31,7 @@ TEST_CASE("MpzClass & long long", "[long long]") {
   REQUIRE(mpz_class(x) == x);
   REQUIRE(mpz_class(x) == x);
   REQUIRE(mpz_class(x) == mpz_class(x));
-  REQUIRE(static_cast<long long>(mpz_class(x)) == x);
+  REQUIRE(mpz_class(x).get_sll() == x);
 }
 
 TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
@@ -43,7 +43,7 @@ TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
   REQUIRE(mpz_class(x) == x);
   REQUIRE(mpz_class(x) == x);
   REQUIRE(mpz_class(x) == mpz_class(x));
-  REQUIRE(static_cast<unsigned long long>(mpz_class(x)) == x);
+  REQUIRE(mpz_class(x).get_ull() == x);
 }
 }  // namespace gmpxxll::test
 
