@@ -46,4 +46,3 @@ TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
   REQUIRE(mpz_class(x).get_ull() == x);
 }
 }  // namespace gmpxxll::test
-

@@ -25,9 +25,9 @@
 #ifndef GMPXXLL_MPZ_CLASS_HPP
 #define GMPXXLL_MPZ_CLASS_HPP
 
-#include <string>
-#include <sstream>
 #include <limits>
+#include <sstream>
+#include <string>
 #include <type_traits>
 
 #include <gmp.h>
@@ -110,6 +110,6 @@ bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; 
 bool operator==(const mpz_class& lhs, const unsigned long long rhs) { return lhs == mpz_class(rhs); }
 bool operator==(const unsigned long long lhs, const mpz_class& rhs) { return rhs == lhs; }
 
-}
+}  // namespace gmpxxll
 
 #endif
