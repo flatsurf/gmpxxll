@@ -29,9 +29,10 @@ TEST_CASE("MpzClass & long long", "[long long]") {
   const long long x = a << shift;
 
   REQUIRE(mpz_class(x) == x);
-  REQUIRE(mpz_class(x) == x);
+  REQUIRE(x == mpz_class(x));
   REQUIRE(mpz_class(x) == mpz_class(x));
   REQUIRE(mpz_class(x).get_sll() == x);
+  REQUIRE(mpz_class(x).fits_slonglong_p());
 }
 
 TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
@@ -41,8 +42,9 @@ TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
   const unsigned long long x = a << shift;
 
   REQUIRE(mpz_class(x) == x);
-  REQUIRE(mpz_class(x) == x);
+  REQUIRE(x == mpz_class(x));
   REQUIRE(mpz_class(x) == mpz_class(x));
   REQUIRE(mpz_class(x).get_ull() == x);
+  REQUIRE(mpz_class(x).fits_ulonglong_p());
 }
 }  // namespace gmpxxll::test

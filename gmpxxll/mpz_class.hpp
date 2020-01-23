@@ -36,8 +36,8 @@
 namespace gmpxxll {
 
 // Adds some long long functionality to mpz_class.
-// Everything has been done quite naively and is likely quite slow. If the
-// performance is a problem for you, patches are always very welcome.
+// Everything has been done quite naively and is likely slow in some cases. If
+// the performance is a problem for you, patches are always very welcome.
 class mpz_class : public ::mpz_class {
  public:
   using ::mpz_class::mpz_class;
@@ -45,19 +45,19 @@ class mpz_class : public ::mpz_class {
   template <typename T>
   mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
 
-  mpz_class(long long value) {
-    if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
-      *this = ::mpz_class(static_cast<long int>(value));
-    } else {
-      if (value >= std::numeric_limits<long int>::min() && value <= std::numeric_limits<long int>::max()) {
-        *this = ::mpz_class(static_cast<long int>(value));
-      } else {
-        *this = ::mpz_class(std::to_string(value));
-      }
-    }
-  }
+  mpz_class(long long value) noexcept : ::mpz_class([&] {
+                                          if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
+                                            return ::mpz_class(static_cast<long int>(value));
+                                          } else {
+                                            if (value >= std::numeric_limits<long int>::min() && value <= std::numeric_limits<long int>::max()) {
+                                              return ::mpz_class(static_cast<long int>(value));
+                                            } else {
+                                              return ::mpz_class(std::to_string(value));
+                                            }
+                                          }
+                                        }()) {}
 
-  mpz_class(unsigned long long value) {
+  mpz_class(unsigned long long value) noexcept {
     if constexpr (std::numeric_limits<unsigned long long>::max() <= std::numeric_limits<unsigned long int>::max()) {
       *this = ::mpz_class(static_cast<unsigned long int>(value));
     } else {
@@ -77,30 +77,34 @@ class mpz_class : public ::mpz_class {
     return *this;
   }
 
-  long long get_sll() const {
-    if (mpz_fits_sint_p(get_mpz_t()))
-      return mpz_get_si(get_mpz_t());
-    if (*this >= mpz_class(std::numeric_limits<long long>::min()) && *this <= mpz_class(std::numeric_limits<long long>::max())) {
-      std::stringstream str;
-      str << *this;
-      long long ret;
-      str >> ret;
-      return ret;
-    }
-    throw std::out_of_range("value does not fit into a long long");
+  long long get_sll() const noexcept {
+    if (fits_slong_p())
+      return get_si();
+
+    std::stringstream str;
+    str << *this;
+    long long ret;
+    str >> ret;
+    return ret;
   }
 
-  unsigned long long get_ull() const {
-    if (mpz_fits_uint_p(get_mpz_t()))
-      return mpz_get_ui(get_mpz_t());
-    if (*this >= 0 && *this <= mpz_class(std::numeric_limits<unsigned long long>::max())) {
-      std::stringstream str;
-      str << *this;
-      unsigned long long ret;
-      str >> ret;
-      return ret;
-    }
-    throw std::out_of_range("value does not fit into an unsigned long long");
+  unsigned long long get_ull() const noexcept {
+    if (fits_ulong_p())
+      return get_ui();
+
+    std::stringstream str;
+    str << *this;
+    unsigned long long ret;
+    str >> ret;
+    return ret;
+  }
+
+  bool fits_slonglong_p() const noexcept {
+    return *this >= mpz_class(std::numeric_limits<long long>::min()) && *this <= mpz_class(std::numeric_limits<long long>::max());
+  }
+
+  bool fits_ulonglong_p() const noexcept {
+    return *this >= 0 && *this <= mpz_class(std::numeric_limits<unsigned long long>::max());
   }
 };
 
