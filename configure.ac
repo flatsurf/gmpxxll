@@ -16,6 +16,12 @@ AC_PROG_CXX
 dnl Set INSTALL or use install-sh.
 AC_PROG_INSTALL
 
+dnl We run the valgrind test-suite in make check-valgrind
+AX_VALGRIND_DFLT([sgcheck], [off])
+AX_VALGRIND_DFLT([drd], [off])
+AX_VALGRIND_DFLT([helgrind], [off])
+AX_VALGRIND_CHECK()
+
 dnl Check for required libraries
 AC_LANG([C++])
 
