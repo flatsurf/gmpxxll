@@ -1,0 +1,7 @@
+ignore:
+  - "^.*.benchmark.cc$"
+  - "^.*/benchmark/.*$"
+  - "^benchmark/.*$"
+  - "**/*.benchmark.cc"
+  - "**/benchmark/*"
+  - "benchmark/*"
