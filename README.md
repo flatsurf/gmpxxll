@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/flatsurf/gmpxxll/branch/master/graph/badge.svg)](https://codecov.io/gh/flatsurf/gmpxxll)
+[![asv](http://img.shields.io/badge/benchmarked%20by-asv-blue.svg?style=flat)](https://flatsurf.github.io/gmpxxll-asv/)
+
 # gmpxxll
 
 A header only library that adds some long long functions for GMP's C++ interface.
