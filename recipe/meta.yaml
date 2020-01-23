@@ -18,9 +18,12 @@ build:
 {%- else %}
   string: {{ target }}
 {%- endif %}
+  # conda's default C++ compiler is not C++17 ready yet
+  skip: True  [win or osx]
 
 requirements:
   build:
+    - libtool
     - automake
     - coreutils
     - {{ compiler('cxx') }}
