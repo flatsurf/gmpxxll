@@ -25,7 +25,7 @@ AX_CXX_COMPILE_STDCXX(17)
 # GMPXX does not contain anything that we can check for with AX_CXX_CHECK_LIB
 # so we just check for something from the standard library, i.e., that -lgmpxx
 # goes through
-AX_CXX_CHECK_LIB([gmpxx], [std::runtime_error::what () const], [have_gmpxx=yes], AC_MSG_ERROR([GMP library for C++ not found]), [-lgmp -lmpfr -lflint])
+AX_CXX_CHECK_LIB([gmpxx], [std::runtime_error::what () const], [have_gmpxx=yes], AC_MSG_ERROR([GMP library for C++ not found]), [-lgmp])
 
 dnl Our benchmarks use Google's C++ benchmark library.
 dnl We fail if they cannot be found but let the user disable it explicitly.
