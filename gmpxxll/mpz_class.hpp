@@ -45,18 +45,17 @@ class mpz_class : public ::mpz_class {
   template <typename T>
   mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
 
-  mpz_class(long long value) noexcept :
-    ::mpz_class([&]{
-      if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
-        return ::mpz_class(static_cast<long int>(value));
-      } else {
-        if (value >= std::numeric_limits<long int>::min() && value <= std::numeric_limits<long int>::max()) {
-          return ::mpz_class(static_cast<long int>(value));
-        } else {
-          return ::mpz_class(std::to_string(value));
-        }
-      }
-    }()) {}
+  mpz_class(long long value) noexcept : ::mpz_class([&] {
+                                          if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
+                                            return ::mpz_class(static_cast<long int>(value));
+                                          } else {
+                                            if (value >= std::numeric_limits<long int>::min() && value <= std::numeric_limits<long int>::max()) {
+                                              return ::mpz_class(static_cast<long int>(value));
+                                            } else {
+                                              return ::mpz_class(std::to_string(value));
+                                            }
+                                          }
+                                        }()) {}
 
   mpz_class(unsigned long long value) noexcept {
     if constexpr (std::numeric_limits<unsigned long long>::max() <= std::numeric_limits<unsigned long int>::max()) {
