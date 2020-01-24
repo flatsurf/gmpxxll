@@ -50,7 +50,7 @@ outputs:
 about:
   home: https://github.com/flatsurf/gmpxxll
   license: MIT
-  license_file: COPYING
+  license_file: LICENSE
   summary: A header only library that adds some long long functions for GMP's C++ interface.
 
 extra:
