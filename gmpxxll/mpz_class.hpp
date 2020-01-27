@@ -72,7 +72,7 @@ class mpz_class : public ::mpz_class {
   // Bring original assignment operators back to life that have been hidden by
   // the implicitly generated assignment operators.
   template <typename T, typename = std::enable_if_t<std::is_convertible_v<T, ::mpz_class>>>
-  inline mpz_class& operator=(T&& rhs) {
+  mpz_class& operator=(T&& rhs) {
     ::mpz_class::operator=(std::forward<T>(rhs));
     return *this;
   }
@@ -108,11 +108,11 @@ class mpz_class : public ::mpz_class {
   }
 };
 
-bool operator==(const mpz_class& lhs, const long long rhs) { return lhs == mpz_class(rhs); }
-bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; }
+inline bool operator==(const mpz_class& lhs, const long long rhs) { return lhs == mpz_class(rhs); }
+inline bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; }
 
-bool operator==(const mpz_class& lhs, const unsigned long long rhs) { return lhs == mpz_class(rhs); }
-bool operator==(const unsigned long long lhs, const mpz_class& rhs) { return rhs == lhs; }
+inline bool operator==(const mpz_class& lhs, const unsigned long long rhs) { return lhs == mpz_class(rhs); }
+inline bool operator==(const unsigned long long lhs, const mpz_class& rhs) { return rhs == lhs; }
 
 }  // namespace gmpxxll
 
