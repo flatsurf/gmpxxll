@@ -56,7 +56,6 @@ class mpz_class : public ::mpz_class {
                                             }
                                           }
                                         }()) {}
-
   mpz_class(unsigned long long value) noexcept {
     if constexpr (std::numeric_limits<unsigned long long>::max() <= std::numeric_limits<unsigned long int>::max()) {
       *this = ::mpz_class(static_cast<unsigned long int>(value));
@@ -109,10 +108,34 @@ class mpz_class : public ::mpz_class {
 };
 
 inline bool operator==(const mpz_class& lhs, const long long rhs) { return lhs == mpz_class(rhs); }
-inline bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; }
+inline bool operator<(const mpz_class& lhs, const long long rhs) { return lhs < mpz_class(rhs); }
+inline bool operator>(const mpz_class& lhs, const long long rhs) { return lhs > mpz_class(rhs); }
 
 inline bool operator==(const mpz_class& lhs, const unsigned long long rhs) { return lhs == mpz_class(rhs); }
+inline bool operator<(const mpz_class& lhs, const unsigned long long rhs) { return lhs < mpz_class(rhs); }
+inline bool operator>(const mpz_class& lhs, const unsigned long long rhs) { return lhs > mpz_class(rhs); }
+
+// Operators derived from the above (we cannot use boost operators here, as
+// they lead to hiding issues with the base class operators.)
+inline bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; }
+inline bool operator!=(const mpz_class& lhs, const long long rhs) { return !(lhs == rhs); }
+inline bool operator!=(const long long lhs, const mpz_class& rhs) { return !(lhs == rhs); }
+inline bool operator<(const long long lhs, const mpz_class& rhs) { return rhs > lhs; }
+inline bool operator>(const long long lhs, const mpz_class& rhs) { return rhs < lhs; }
+inline bool operator<=(const long long lhs, const mpz_class& rhs) { return !(lhs > rhs); }
+inline bool operator>=(const long long lhs, const mpz_class& rhs) { return !(lhs < rhs); }
+inline bool operator<=(const mpz_class& lhs, const long long rhs) { return !(lhs > rhs); }
+inline bool operator>=(const mpz_class& lhs, const long long rhs) { return !(lhs < rhs); }
+
 inline bool operator==(const unsigned long long lhs, const mpz_class& rhs) { return rhs == lhs; }
+inline bool operator!=(const mpz_class& lhs, const unsigned long long rhs) { return !(lhs == rhs); }
+inline bool operator!=(const unsigned long long lhs, const mpz_class& rhs) { return !(lhs == rhs); }
+inline bool operator<(const unsigned long long lhs, const mpz_class& rhs) { return rhs > lhs; }
+inline bool operator>(const unsigned long long lhs, const mpz_class& rhs) { return rhs < lhs; }
+inline bool operator<=(const unsigned long long lhs, const mpz_class& rhs) { return !(lhs > rhs); }
+inline bool operator>=(const unsigned long long lhs, const mpz_class& rhs) { return !(lhs < rhs); }
+inline bool operator<=(const mpz_class& lhs, const unsigned long long rhs) { return !(lhs > rhs); }
+inline bool operator>=(const mpz_class& lhs, const unsigned long long rhs) { return !(lhs < rhs); }
 
 }  // namespace gmpxxll
 
