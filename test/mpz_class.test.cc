@@ -27,29 +27,90 @@
 #include "../gmpxxll/mpz_class.hpp"
 
 namespace gmpxxll::test {
-TEST_CASE("MpzClass & long long", "[long long]") {
-  const long long a = GENERATE(take(100, random(-100, 100)));
+
+TEMPLATE_TEST_CASE("MpzClass & (unsigned) long long", "[mpz_class]", (long long), (unsigned long long)) {
+  TestType a;
+  if constexpr (std::is_same_v<TestType, long long>) {
+    a = GENERATE(take(100, random(-100, 100)));
+  } else {
+    a = GENERATE(take(100, random(0, 100)));
+  }
   const int shift = GENERATE(range(0, 128));
 
-  const long long x = a << shift;
+  const TestType x = a << shift;
 
-  REQUIRE(mpz_class(x) == x);
-  REQUIRE(x == mpz_class(x));
+  if constexpr (std::is_same_v<TestType, long long>) {
+    REQUIRE(mpz_class(x).get_sll() == x);
+    REQUIRE(mpz_class(x).fits_slonglong_p());
+  } else {
+    REQUIRE(mpz_class(x).get_ull() == x);
+    REQUIRE(mpz_class(x).fits_ulonglong_p());
+  }
   REQUIRE(mpz_class(x) == mpz_class(x));
-  REQUIRE(mpz_class(x).get_sll() == x);
-  REQUIRE(mpz_class(x).fits_slonglong_p());
+
+  SECTION("Comparison Operators") {
+    const TestType less = x - 1;
+    const TestType more = x + 1;
+    const auto X = mpz_class(x);
+
+    SECTION("operator==") {
+      REQUIRE(X == x);
+      REQUIRE(x == X);
+      REQUIRE(!(X == less));
+      REQUIRE(!(less == X));
+    }
+
+    SECTION("operator!=") {
+      REQUIRE(!(X != x));
+      REQUIRE(!(x != X));
+      REQUIRE(X != less);
+      REQUIRE(less != X);
+    }
+
+    SECTION("operator<") {
+      if (more > x) {
+        REQUIRE(X < more);
+      }
+      if (less < x) {
+        REQUIRE(less < X);
+      }
+      REQUIRE(!(X < x));
+      REQUIRE(!(x < X));
+    }
+
+    SECTION("operator>") {
+      if (less < x) {
+        REQUIRE(X > less);
+      }
+      if (more > x) {
+        REQUIRE(more > X);
+      }
+      REQUIRE(!(X > x));
+      REQUIRE(!(x > X));
+    }
+
+    SECTION("operator<=") {
+      REQUIRE(X <= x);
+      REQUIRE(x <= X);
+      if (less < x) {
+        REQUIRE(!(X <= less));
+      }
+      if (more > x) {
+        REQUIRE(!(more <= X));
+      }
+    }
+
+    SECTION("operator>=") {
+      REQUIRE(X >= x);
+      REQUIRE(x >= X);
+      if (more > x) {
+        REQUIRE(!(X >= more));
+      }
+      if (less < x) {
+        REQUIRE(!(less >= X));
+      }
+    }
+  }
 }
 
-TEST_CASE("MpzClass & unsigned long long", "[unsigned long long]") {
-  const unsigned long long a = GENERATE(take(100, random(0, 100)));
-  const int shift = GENERATE(range(0, 128));
-
-  const unsigned long long x = a << shift;
-
-  REQUIRE(mpz_class(x) == x);
-  REQUIRE(x == mpz_class(x));
-  REQUIRE(mpz_class(x) == mpz_class(x));
-  REQUIRE(mpz_class(x).get_ull() == x);
-  REQUIRE(mpz_class(x).fits_ulonglong_p());
-}
 }  // namespace gmpxxll::test
