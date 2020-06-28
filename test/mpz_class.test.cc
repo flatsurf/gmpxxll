@@ -26,6 +26,7 @@
 
 #include "../gmpxxll/mpz_class.hpp"
 
+namespace {
 namespace gmpxxll::test {
 
 TEMPLATE_TEST_CASE("MpzClass & (unsigned) long long", "[mpz_class]", (long long), (unsigned long long)) {
@@ -112,5 +113,6 @@ TEMPLATE_TEST_CASE("MpzClass & (unsigned) long long", "[mpz_class]", (long long)
     }
   }
 }
-
 }  // namespace gmpxxll::test
+
+}  // namespace

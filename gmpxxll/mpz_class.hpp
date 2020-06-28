@@ -25,14 +25,15 @@
 #ifndef GMPXXLL_MPZ_CLASS_HPP
 #define GMPXXLL_MPZ_CLASS_HPP
 
+#include <gmp.h>
+#include <gmpxx.h>
+
 #include <limits>
 #include <sstream>
 #include <string>
 #include <type_traits>
 
-#include <gmp.h>
-#include <gmpxx.h>
-
+namespace {
 namespace gmpxxll {
 
 // Adds some long long functionality to mpz_class.
@@ -138,5 +139,6 @@ inline bool operator<=(const mpz_class& lhs, const unsigned long long rhs) { ret
 inline bool operator>=(const mpz_class& lhs, const unsigned long long rhs) { return !(lhs < rhs); }
 
 }  // namespace gmpxxll
+}  // namespace
 
 #endif
