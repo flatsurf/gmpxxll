@@ -43,8 +43,9 @@ class mpz_class : public ::mpz_class {
  public:
   using ::mpz_class::mpz_class;
 
-  template <typename T>
-  mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
+  mpz_class(const ::mpz_class& value) : ::mpz_class(value) {}
+
+  mpz_class(::mpz_class&& value) : ::mpz_class(std::move(value)) {}
 
   mpz_class(long long value) noexcept : ::mpz_class([&] {
                                           if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
