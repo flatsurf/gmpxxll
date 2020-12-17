@@ -40,45 +40,49 @@ namespace gmpxxll {
 // Everything has been done quite naively and is likely slow in some cases. If
 // the performance is a problem for you, patches are always very welcome.
 class mpz_class : public ::mpz_class {
- public:
-  using ::mpz_class::mpz_class;
+  /// Helper method that turns a (unsigned) long long value into a GMP `mpz_class`.
+  template <typename T>
+  static ::mpz_class make(const T value) {
+    using Long = std::conditional_t<std::is_signed_v<T>, long, unsigned long>;
 
-  mpz_class(const ::mpz_class& value) : ::mpz_class(value) {}
-
-  mpz_class(::mpz_class&& value) : ::mpz_class(std::move(value)) {}
-
-  mpz_class(long long value) noexcept : ::mpz_class([&] {
-                                          if constexpr (std::numeric_limits<long long>::max() <= std::numeric_limits<long int>::max() && std::numeric_limits<long long>::min() >= std::numeric_limits<long int>::min()) {
-                                            return ::mpz_class(static_cast<long int>(value));
-                                          } else {
-                                            if (value >= std::numeric_limits<long int>::min() && value <= std::numeric_limits<long int>::max()) {
-                                              return ::mpz_class(static_cast<long int>(value));
-                                            } else {
-                                              return ::mpz_class(std::to_string(value));
-                                            }
-                                          }
-                                        }()) {}
-  mpz_class(unsigned long long value) noexcept {
-    if constexpr (std::numeric_limits<unsigned long long>::max() <= std::numeric_limits<unsigned long int>::max()) {
-      *this = ::mpz_class(static_cast<unsigned long int>(value));
+    if constexpr (std::numeric_limits<T>::max() <= std::numeric_limits<Long>::max() && std::numeric_limits<T>::min() >= std::numeric_limits<Long>::min()) {
+      return ::mpz_class(static_cast<Long>(value));
     } else {
-      if (value <= std::numeric_limits<unsigned long int>::max()) {
-        *this = ::mpz_class(static_cast<unsigned long int>(value));
+      if (value >= std::numeric_limits<Long>::min() && value <= std::numeric_limits<Long>::max()) {
+        return ::mpz_class(static_cast<Long>(value));
       } else {
-        *this = ::mpz_class(std::to_string(value));
+        return ::mpz_class(std::to_string(value));
       }
     }
   }
 
-  // Bring original assignment operators back to life that have been hidden by
-  // the implicitly generated assignment operators.
+ public:
+  using ::mpz_class::mpz_class;
+
+  //- Support all the constructors provided by the base class.
+  template <typename T>
+  mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
+
+  /// === Constructors ===
+  /// Construct an `mpz_class` from an (unsigned) long long value.
+  /// All the constructors provided by GMP's `mpz_class` are also available
+  /// through a forwarding constructor.
+  mpz_class(long long value) : ::mpz_class(make(value)) {}
+
+  mpz_class(unsigned long long value) : ::mpz_class(make(value)) {}
+
+  //- Bring the original assignment operators back to life that have been
+  //- hidden by the implicitly generated assignment operators.
   template <typename T, typename = std::enable_if_t<std::is_convertible_v<T, ::mpz_class>>>
   mpz_class& operator=(T&& rhs) {
     ::mpz_class::operator=(std::forward<T>(rhs));
     return *this;
   }
 
-  long long get_sll() const noexcept {
+  /// == Type Conversion ==
+  /// Return this integer as an (unsigned) long long value.
+  /// The behaviour is undefined when the integer does not fit into an (unsigned) long long.
+  long long get_sll() const {
     if (fits_slong_p())
       return get_si();
 
@@ -89,7 +93,7 @@ class mpz_class : public ::mpz_class {
     return ret;
   }
 
-  unsigned long long get_ull() const noexcept {
+  unsigned long long get_ull() const {
     if (fits_ulong_p())
       return get_ui();
 
