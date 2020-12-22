@@ -1,0 +1,18 @@
+# This file lists the dependencies needed to build and test all of gmpxxll.
+# # Create a conda environment with these dependencies preinstalled with:
+# conda env create -f environment.yml
+name: gmpxxll-build
+channels:
+  - flatsurf
+  - conda-forge
+  - defaults
+dependencies:
+  - automake
+  - benchmark
+  - coreutils
+  - cxx-compiler
+  - gmp
+  - libtool
+  - make
+  # valgrind is only needed for make check-valgrind
+  # - valgrind
