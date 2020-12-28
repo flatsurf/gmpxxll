@@ -1,5 +1,4 @@
 [![codecov](https://codecov.io/gh/flatsurf/gmpxxll/branch/master/graph/badge.svg)](https://codecov.io/gh/flatsurf/gmpxxll)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/flatsurf/gmpxxll.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/flatsurf/gmpxxll/alerts/)
 [![asv](http://img.shields.io/badge/benchmarked%20by-asv-blue.svg?style=flat)](https://flatsurf.github.io/gmpxxll/asv/)
 
 # gmpxxll
