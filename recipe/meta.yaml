@@ -1,23 +1,15 @@
-# See https://github.com/conda/conda-build/issues/2666 for the missing tag
-{% set version = environ.get('GIT_DESCRIBE_TAG', 'untagged')|string|replace('-','_') %}
-{% set build_number = environ.get('GIT_DESCRIBE_NUMBER') %}
-{% set name = name or 'gmpxxll' %}
-{% set target = target or 'release' %}
+{% set version = '1.0.0' %}
+{% set build_number = '0' %}
 
 package:
-  name: {{ name }}
+  name: gmpxxll
   version: {{ version }}
 
 source:
-  git_url: {{ environ.get('FEEDSTOCK_ROOT', '..') }}
+  path: ../
 
 build:
   number: {{ build_number }}
-{%- if target == "release" %}
-  string: {{ build_number }}
-{%- else %}
-  string: {{ target }}
-{%- endif %}
   # conda's default C++ compiler is not C++17 ready yet
   skip: True  [win or osx]
 
@@ -27,32 +19,11 @@ requirements:
     - automake
     - coreutils
     - {{ compiler('cxx') }}
-{%- if target == "benchmark" %}
-    - git
-{%- elif target == "style" %}
-    - clangdev ==8.0.0
-{%- endif %}
   host:
     - gmp
-{%- if target in ["test", "coverage", "benchmark"] %}
-    - benchmark
-{%- endif %}
-{%- if target == "benchmark" %}
-    - asv
-{%- endif %}
-
-outputs:
-  - name: {{ name }}
-{%- if target == "release" %}
-    script: install-{{ name }}.sh
-{%- endif %}
 
 about:
   home: https://github.com/flatsurf/gmpxxll
   license: MIT
-  license_file: LICENSE
+  license_file: COPYING
   summary: A header only library that adds some long long functions for GMP's C++ interface.
-
-extra:
-  recipe-maintainers:
-    - saraedum

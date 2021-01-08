@@ -1,12 +1,6 @@
-#!/bin/bash
-set -ex
+export CXXFLAGS="$CXXFLAGS -g3 -UNDEBUG"
 
-source $RECIPE_DIR/environment.sh
+autoreconf -ivf
 
-$SNIPPETS_DIR/autoconf/run.sh
-$SNIPPETS_DIR/make/run.sh
-
-$SNIPPETS_DIR/clang-format/run.sh
-$SNIPPETS_DIR/asv/run.sh
-$SNIPPETS_DIR/todo/run.sh
-$SNIPPETS_DIR/codecov/run.sh
+./configure --prefix="$PREFIX" --without-benchmark
+make install
