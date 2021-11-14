@@ -32,6 +32,8 @@ git reset FETCH_HEAD
 git diff --exit-code
 git diff --cached --exit-code
 
+import sys
+
 sys.path.insert(0, 'tools/rever')
 
 import autodist
