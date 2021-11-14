@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
-#*********************************************************************
+######################################################################
 #  This file is part of gmpxxll.
 #
-#        Copyright (C) 2019-2021 Julian Rüth
+#        Copyright (C) 2020-2021 Julian Rüth
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to
@@ -21,20 +20,26 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
-#*********************************************************************
+#####################################################################
+from rever.activity import Activity
 
-import os
-from os.path import join
+class AutotoolsDist(Activity):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.name = "autodist"
+        self.desc = "Creates a source tarball with make dist"
+        self.requires = {"commands": {"make": "make"}}
 
-from cppasv import create_wrappers
+    def __call__(self):
+        from tempfile import TemporaryDirectory
+        from xonsh.dirstack import DIRSTACK
+        with TemporaryDirectory() as tmp:
+            ./bootstrap
+            pushd @(tmp)
+            @(DIRSTACK[-1])/configure
+            make dist
+            mv *.tar.gz @(DIRSTACK[-1])
+            popd
+        return True
 
-ASV_PROJECT_DIR = os.environ.get('ASV_PROJECT_DIR', None)
-
-if not ASV_PROJECT_DIR:
-    ASV_ENV_DIR = os.environ.get('ASV_ENV_DIR', None)
-    if ASV_ENV_DIR:
-        ASV_PROJECT_DIR = join(ASV_ENV_DIR, "project")
-    else:
-        ASV_PROJECT_DIR = join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-
-locals().update(create_wrappers(join(ASV_PROJECT_DIR, "benchmark", "benchmark")))
+$DAG['autodist'] = AutotoolsDist()
