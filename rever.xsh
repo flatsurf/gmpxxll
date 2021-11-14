@@ -43,7 +43,7 @@ $PROJECT = 'gmpxxll'
 $ACTIVITIES = [
     'version_bump',
     'changelog',
-    'dist',
+    'autodist',
     'tag',
     'push_tag',
     'ghrelease',
