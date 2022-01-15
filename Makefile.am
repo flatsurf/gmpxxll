@@ -2,7 +2,7 @@ if HAVE_BENCHMARK
     MAYBE_BENCHMARK = benchmark
 endif
 
-SUBDIRS = test $(MAYBE_BENCHMARK)
+SUBDIRS = test $(MAYBE_BENCHMARK) @subdirs@
 
 ACLOCAL_AMFLAGS = -I m4
 
