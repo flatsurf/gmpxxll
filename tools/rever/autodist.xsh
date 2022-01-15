@@ -21,47 +21,25 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 #####################################################################
+from rever.activity import Activity
 
-# Check that we are on the master branch
-branch=$(git branch --show-current)
-if branch.strip() != "master":
-  raise Exception("You must be on the master branch to release.")
-# and that it is up to date with origin/master
-git fetch https://github.com/flatsurf/gmpxxll.git
-git reset FETCH_HEAD
-git diff --exit-code
-git diff --cached --exit-code
+class AutotoolsDist(Activity):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.name = "autodist"
+        self.desc = "Creates a source tarball with make dist"
+        self.requires = {"commands": {"make": "make"}}
 
-import sys
+    def __call__(self):
+        from tempfile import TemporaryDirectory
+        from xonsh.dirstack import DIRSTACK
+        with TemporaryDirectory() as tmp:
+            ./bootstrap
+            pushd @(tmp)
+            @(DIRSTACK[-1])/configure
+            make dist
+            mv *.tar.gz @(DIRSTACK[-1])
+            popd
+        return True
 
-sys.path.insert(0, 'tools/rever')
-
-import autodist
-
-$PROJECT = 'gmpxxll'
-
-$ACTIVITIES = [
-    'version_bump',
-    'changelog',
-    'autodist',
-    'tag',
-    'push_tag',
-    'ghrelease',
-]
-
-$VERSION_BUMP_PATTERNS = [
-    ('configure.ac', r'AC_INIT', r'AC_INIT([gmpxxll], [$VERSION], [julian.rueth@fsfe.org])'),
-    ('recipe/meta.yaml', r"\{% set version =", r"{% set version = '$VERSION' %}"),
-    ('recipe/meta.yaml', r"\{% set build_number =", r"{% set build_number = '0' %}"),
-]
-
-$CHANGELOG_FILENAME = 'ChangeLog'
-$CHANGELOG_TEMPLATE = 'TEMPLATE.rst'
-$CHANGELOG_NEWS = 'doc/news'
-$CHANGELOG_CATEGORIES = ('Added', 'Changed', 'Deprecated', 'Removed', 'Fixed', 'Performance')
-$PUSH_TAG_REMOTE = 'git@github.com:flatsurf/gmpxxll.git'
-
-$GITHUB_ORG = 'flatsurf'
-$GITHUB_REPO = 'gmpxxll'
-
-$GHRELEASE_ASSETS = ['gmpxxll-' + $VERSION + '.tar.gz']
+$DAG['autodist'] = AutotoolsDist()
