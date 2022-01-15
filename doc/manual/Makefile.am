@@ -8,10 +8,14 @@ STANDARDESE_FLAGS += -I $(srcdir)/../../gmpxxll -I $(builddir)/../../gmpxxll -I 
 STANDARDESE_FLAGS += -p output_section='=== (.*) ==='
 # Allow ==* Group *== Syntax
 STANDARDESE_FLAGS += -p group='==\* ((?:.(?!\*==))+)() \*=='
+# Allow [Excluded from documentation] Syntax
+STANDARDESE_FLAGS += -p exclude='\[Excluded from documentation\]'
 # Allow :param:`name` syntax like in Sphinx.
 STANDARDESE_FLAGS += -p param=':param:`([^`]*)`'
 # We will serve the documentation from the gmpxxll subdirectory
 STANDARDESE_FLAGS += --vpath 'gmpxxll/doc_{{ sanitize_basename(name) }}'
+# We use C++17 features in gmpxxll headers
+STANDARDESE_FLAGS += --std=c++17
 # Shorten type names in the documentation that reference common namespaces or use complicated aliases.
 STANDARDESE_FLAGS += --format type='{% set formatted = format(option("default:type_format")) %}{% set formatted = replace(formatted, "std::|gmpxxll::", "") %}{% set formatted = replace(formatted, "mp_limb_signed_t", "slong") %}{% set formatted = replace(formatted, "mp_bitcnt_t", "ulong") %}{{ formatted }}'
 
