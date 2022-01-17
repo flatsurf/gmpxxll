@@ -57,7 +57,7 @@ jobs:
         run: |
           ./bootstrap
           ./configure --prefix="$PREFIX"
-          make distcheck
+          EXTRA_STANDARDESE_FLAGS=-I${CONDA_PREFIX}/include make distcheck
       - name: show logs
         run: grep "" /dev/null `find -name '*.log'` || true
         if: ${{ always() }}
