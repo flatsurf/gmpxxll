@@ -53,7 +53,7 @@ all: html
 
 .PHONY: serve $(builddir)/generated/html $(builddir)/generated/markdown $(builddir)/generated/inventory
 
-EXTRA_DIST = README.md libeantic
+EXTRA_DIST = gmpxxll
 
 mostlyclean-local:
 	[[ ! -d generated ]] || (chmod -R u+w generated && rm -rf generated)
