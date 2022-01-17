@@ -33,7 +33,7 @@ jobs:
         run: |
           ./bootstrap
           export CXXFLAGS="$CXXFLAGS -UNDEBUG"
-          ./configure --prefix="$PREFIX" --without-benchmark
+          ./configure --prefix="$PREFIX" --without-benchmark --without-doc
           make
           make V=1 ${{ matrix.target }}
       - name: show logs
@@ -50,6 +50,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mamba env update --quiet -n test -f environment.yml
+          mamba env update --quiet -n test -f doc/environment.yml
           conda list
       - name: make distcheck
         shell: bash -l {0}
