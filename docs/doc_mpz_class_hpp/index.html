@@ -106,8 +106,6 @@ m = gmpxxll::mpz_class(n);
 <h2 id="class-mpz_class">Class <code>mpz_class</code><a class="headerlink" href="#class-mpz_class" title="Permanent link">&para;</a></h2>
 <p>Adds long long functionality to <code>mpz_class</code>.</p>
 <p>This class derives from GMP’s <code>mpz_class</code>. It is binary compatible with that class but adds some methods related to <code>long long</code> and <code>unsigned long long</code>. Note that on LP64 implementations of C++ both <code>long</code> and <code>long long</code> are 64 bits wide so this does not add anything and performance overhead should be negligible when optimizations are enabled. On LLP64 implementations, most notably Microsoft Windows, conversions actually need to take place. These conversions are probably not implemented very efficiently yet.</p>
-<h3 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>Helper method that turns a (unsigned) long long value into a GMP <code>mpz_class</code>.</p>
 <h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
 <pre><code>(1) mpz_class(long long value)
 
@@ -143,42 +141,6 @@ m = gmpxxll::mpz_class(n);
 (5) bool operator&lt;(const mpz_class&amp; lhs, const unsigned long long rhs)
 
 (6) bool operator&gt;(const mpz_class&amp; lhs, const unsigned long long rhs)
-
-(7) bool operator==(const long long lhs, const mpz_class&amp; rhs)
-
-(8) bool operator!=(const mpz_class&amp; lhs, const long long rhs)
-
-(9) bool operator!=(const long long lhs, const mpz_class&amp; rhs)
-
-(10) bool operator&lt;(const long long lhs, const mpz_class&amp; rhs)
-
-(11) bool operator&gt;(const long long lhs, const mpz_class&amp; rhs)
-
-(12) bool operator&lt;=(const long long lhs, const mpz_class&amp; rhs)
-
-(13) bool operator&gt;=(const long long lhs, const mpz_class&amp; rhs)
-
-(14) bool operator&lt;=(const mpz_class&amp; lhs, const long long rhs)
-
-(15) bool operator&gt;=(const mpz_class&amp; lhs, const long long rhs)
-
-(16) bool operator==(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(17) bool operator!=(const mpz_class&amp; lhs, const unsigned long long rhs)
-
-(18) bool operator!=(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(19) bool operator&lt;(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(20) bool operator&gt;(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(21) bool operator&lt;=(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(22) bool operator&gt;=(const unsigned long long lhs, const mpz_class&amp; rhs)
-
-(23) bool operator&lt;=(const mpz_class&amp; lhs, const unsigned long long rhs)
-
-(24) bool operator&gt;=(const mpz_class&amp; lhs, const unsigned long long rhs)
 
 </code></pre>
 <p>All the binary operators <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&gt;</code> support <code>long long</code> operands. Note that binary arithmetic operators are implicitly supported because there is an implicit constructor that can cast a <code>long long</code> to an <code>gmpxxll::mpz_class</code>.</p>
