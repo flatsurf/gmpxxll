@@ -41,7 +41,7 @@ jobs:
         shell: bash -l {0}
         run: |
           make html
-          touch doc/manual/generated/html/.nojekyll
+          touch doc/manual/generated/html/gmpxxll/.nojekyll
       - name: detect broken links
         shell: bash -l {0}
         run: |

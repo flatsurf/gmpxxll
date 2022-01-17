@@ -40,7 +40,7 @@ $(builddir)/generated/markdown:
 html: $(builddir)/generated/markdown $(builddir)/generated/markdown/mkdocs.yml
 	@# Create html documentation from markdown files
 	cd $(builddir)/generated/markdown &&\
-	$(MKDOCS) build --config-file mkdocs.yml --site-dir $(abs_builddir)/generated/html/
+	$(MKDOCS) build --config-file mkdocs.yml --site-dir $(abs_builddir)/generated/html/gmpxxll/
 
 $(builddir)/generated/markdown/mkdocs.yml: $(srcdir)/gmpxxll/mkdocs.yml.in Makefile
 	mkdir -p $(builddir)/generated/markdown
