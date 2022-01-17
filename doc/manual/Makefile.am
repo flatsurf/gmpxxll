@@ -34,7 +34,7 @@ $(builddir)/generated/inventory:
 $(builddir)/generated/markdown:
 	@# Build markdown files from C++ headers
 	mkdir -p $(builddir)/generated/
-	cp -RT $(srcdir)/gmpxxll $(builddir)/generated/markdown
+	cp -RT $(srcdir)/gmpxxll/* $(builddir)/generated/markdown
 	$(STANDARDESE) --outdir $(builddir)/generated/markdown/ $(STANDARDESE_FLAGS) $(STANDARDESE_INPUTS)
 
 html: $(builddir)/generated/markdown $(builddir)/generated/markdown/mkdocs.yml
@@ -42,7 +42,7 @@ html: $(builddir)/generated/markdown $(builddir)/generated/markdown/mkdocs.yml
 	cd $(builddir)/generated/markdown &&\
 	$(MKDOCS) build --config-file mkdocs.yml --site-dir $(abs_builddir)/generated/html/
 
-$(builddir)/generated/markdown/mkdocs.yml: $(srcdir)/mkdocs.yml.in Makefile
+$(builddir)/generated/markdown/mkdocs.yml: $(srcdir)/gmpxxll/mkdocs.yml.in Makefile
 	mkdir -p $(builddir)/generated/markdown
 	sed -e 's,[@]srcdir[@],$(srcdir),g' -e 's,[@]builddir[@],$(builddir),g' < $< > $@
 
