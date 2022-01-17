@@ -27,7 +27,7 @@
 /// `mpz_class` and is binary compatible with it.
 ///
 /// This makes it possible to mix the two types quite freely. So, you might
-/// want to use `gmpxxll::mpz_class` where you perform (generic) conversion 
+/// want to use `gmpxxll::mpz_class` where you perform (generic) conversion
 /// from/to standard integer types and use the regular `mpz_class` everywhere
 /// else:
 /// ```c++
