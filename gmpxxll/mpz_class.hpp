@@ -1,7 +1,7 @@
 /* ********************************************************************
  *  This file is part of gmpxxll.
  *
- *        Copyright (C) 2019-2021 Julian Rüth
+ *        Copyright (C) 2019-2022 Julian Rüth
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -67,7 +67,8 @@ namespace gmpxxll {
 /// notably Microsoft Windows, conversions actually need to take place. These
 /// conversions are probably not implemented very efficiently yet.
 class mpz_class : public ::mpz_class {
-  /// Helper method that turns a (unsigned) long long value into a GMP `mpz_class`.
+  /// [Excluded from documentation]
+  /// Helper method that turns an (unsigned) long long value into a GMP `mpz_class`.
   template <typename T>
   static ::mpz_class make(const T value) {
     using Long = std::conditional_t<std::is_signed_v<T>, long, unsigned long>;
@@ -86,7 +87,8 @@ class mpz_class : public ::mpz_class {
  public:
   using ::mpz_class::mpz_class;
 
-  //- Support all the constructors provided by the base class.
+  /// [Excluded from documentation]
+  /// Support all the constructors provided by the base class.
   template <typename T>
   mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
 
@@ -156,8 +158,9 @@ inline bool operator==(const mpz_class& lhs, const unsigned long long rhs) { ret
 inline bool operator<(const mpz_class& lhs, const unsigned long long rhs) { return lhs < mpz_class(rhs); }
 inline bool operator>(const mpz_class& lhs, const unsigned long long rhs) { return lhs > mpz_class(rhs); }
 
-//- Operators derived from the above (we cannot use boost operators here, as
-//- they lead to hiding issues with the base class operators.)
+/// [Excluded from documentation]
+/// Operators derived from the above (we cannot use boost operators here, as
+/// they lead to hiding issues with the base class operators.)
 inline bool operator==(const long long lhs, const mpz_class& rhs) { return rhs == lhs; }
 inline bool operator!=(const mpz_class& lhs, const long long rhs) { return !(lhs == rhs); }
 inline bool operator!=(const long long lhs, const mpz_class& rhs) { return !(lhs == rhs); }
