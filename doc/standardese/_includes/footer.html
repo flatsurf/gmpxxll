@@ -1,0 +1,36 @@
+<footer class="site-footer h-card">
+  <link rel="shortcut icon" type="image/png" href="/logo.png">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">{{ site.title | escape }}</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          {%- for author in site.authors -%}
+          <li class="p-name">
+            {{ author }}
+          </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        {{ site.title }} is part of
+        {%- include social.html -%}
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>{{- site.description -}}</p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="https://cdn.jsdelivr.net/npm/anchor-js@4.2.0/anchor.min.js"></script>
+  <script>anchors.add("h3, h4, h5, h6");</script>
+  <script>
+    var header = document.querySelector("h1.post-title");
+    var name = "{{ page.path }}".split("/").slice(-1)[0];
+    header.innerHTML = header.innerHTML.replace(name, "<a href='{{ site.github_blob }}{{ page.path }}'>" + name + "</a>")
+  </script>
+  <a class="github-edit" href="{{ site.github_blob }}{{ page.path }}">Edit on GitHub</a>
+</footer>

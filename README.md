@@ -3,7 +3,7 @@
 
 # gmpxxll
 
-A header only library that adds some long long functions for GMP's C++ interface.
+A header only library that adds long long functions to GMP's C++ interface.
 
 What you're looking for is in [`gmpxxll/`](./gmpxxll).
 

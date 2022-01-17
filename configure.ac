@@ -44,6 +44,9 @@ AS_IF([test "x$with_benchmark" != "xno"],
       ], [])
 AM_CONDITIONAL([HAVE_BENCHMARK], [test "x$with_benchmark" = "xyes"])
 
+AC_ARG_WITH([doc], AS_HELP_STRING([--without-doc], [Do not build the e-antic documentation]))
+AS_IF([test "x$with_doc" != "xno"], [AC_CONFIG_SUBDIRS([doc])])
+
 AC_CONFIG_HEADERS([gmpxxll/config.h])
 AC_CONFIG_FILES([Makefile test/Makefile benchmark/Makefile])
 

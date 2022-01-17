@@ -29,7 +29,6 @@
 using benchmark::DoNotOptimize;
 using benchmark::State;
 
-namespace {
 namespace gmpxxll::benchmark {
 
 // For comparison, the official mpz_class initializing from an int.
@@ -65,4 +64,3 @@ static void ToLongLong(State& state) {
 BENCHMARK(ToLongLong)->Arg(0)->Arg(10)->Arg(30)->Arg(40)->Arg(60);
 
 }  // namespace gmpxxll::benchmark
-}  // namespace

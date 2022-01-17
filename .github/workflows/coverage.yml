@@ -3,6 +3,10 @@ on:
   push: { branches: [ "master" ] }
   pull_request: { branches: [ "master" ] }
 
+concurrency:
+  group: coverage-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   codecov:
     runs-on: ubuntu-20.04
@@ -21,7 +25,7 @@ jobs:
         run: |
           ./bootstrap
           export CXXFLAGS="$CXXFLAGS --coverage -O0 -UNDEBUG"
-          ./configure --prefix="$PREFIX" --without-benchmark
+          ./configure --prefix="$PREFIX" --without-benchmark --without-doc
           make check
       - name: create & post coverage report
         shell: bash -l {0}
