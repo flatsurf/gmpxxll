@@ -19,7 +19,7 @@
   "conda_channels": ["flatsurf", "conda-forge", "default"],
   "build_command": [
     "autoreconf -ivf",
-    "/bin/sh configure CXX='ccache c++'",
+    "/bin/sh configure CXX='ccache c++' --without-doc",
     "make"
   ],
   "install_command": [],
