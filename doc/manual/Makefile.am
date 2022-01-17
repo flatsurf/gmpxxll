@@ -34,7 +34,7 @@ $(builddir)/generated/inventory:
 $(builddir)/generated/markdown:
 	@# Build markdown files from C++ headers
 	mkdir -p $(builddir)/generated/
-	cp -RT $(srcdir)/ $(builddir)/generated/markdown
+	cp -RT $(srcdir)/gmpxxll $(builddir)/generated/markdown
 	$(STANDARDESE) --outdir $(builddir)/generated/markdown/ $(STANDARDESE_FLAGS) $(STANDARDESE_INPUTS)
 
 html: $(builddir)/generated/markdown $(builddir)/generated/markdown/mkdocs.yml
