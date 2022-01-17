@@ -48,7 +48,7 @@ jobs:
           python -m http.server 8880 --directory doc/manual/generated/html &
           sleep 1
           linkchecker --check-extern http://localhost:8880/gmpxxll --ignore-url '^https://flatsurf.github.io/gmpxxll/.*$'
-      - uses: JamesIves/github-pages-deploy-action@4.2.2
+      - uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
           branch: gh-pages
           folder: doc/manual/generated/html/gmpxxll
