@@ -5,12 +5,9 @@
 # conda env update -n doc-gmpxxll-build -f doc/environment.yml
 name: doc-eantic-build
 channels:
-  - saraedum
   - conda-forge
   - defaults
 dependencies:
-  - standardese>=0.6.0
+  - saraedum::standardese>=0.6.0
   - mkdocs>=1.1.0
-  - pip
-  - pip:
-    - linkchecker
+  - linkchecker
