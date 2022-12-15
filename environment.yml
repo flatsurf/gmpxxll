@@ -3,7 +3,6 @@
 # conda env create -f environment.yml
 name: gmpxxll-build
 channels:
-  - flatsurf
   - conda-forge
   - defaults
 dependencies:
