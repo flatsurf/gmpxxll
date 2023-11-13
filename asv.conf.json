@@ -10,13 +10,13 @@
     "automake": [],
     "benchmark==1.5.0": [],
     "ccache": [],
-    "cppasv": [],
+    "flatsurf::cppasv": [],
     "cxx-compiler": [],
     "gmp": [],
     "libtool": [],
     "make": []
   },
-  "conda_channels": ["flatsurf", "conda-forge", "default"],
+  "conda_channels": ["conda-forge"],
   "build_command": [
     "autoreconf -ivf",
     "/bin/sh configure CXX='ccache c++' --without-doc",
