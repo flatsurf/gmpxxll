@@ -6,7 +6,6 @@
 name: doc-eantic-build
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - saraedum::standardese>=0.6.0
   - mkdocs>=1.1.0

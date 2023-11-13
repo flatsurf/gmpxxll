@@ -4,7 +4,6 @@
 name: gmpxxll-build
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - automake
   - benchmark
