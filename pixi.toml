@@ -1,0 +1,158 @@
+# This file describes the [pixi](https://pixi.sh) interface to gmpxxll, see the
+# README for how to use pixi with gmpxxll.
+
+[project]
+channels = ["conda-forge"]
+description = "long long support for GMP's C++ Interface"
+name = "gmpxxll"
+platforms = ["linux-64", "osx-64"]
+
+[environments]
+env-coverage = ["coverage"]
+
+##############
+# ACTIVATION #
+##############
+[activation.env]
+MAKEFLAGS = "-j$(nproc)"
+CFLAGS = "-g3"
+CXXFLAGS = "-g3"
+
+[feature.coverage.activation.env]
+CFLAGS = "-coverage -O0 -UNDEBUG"
+CXXFLAGS = "-coverage -O0 -UNDEBUG"
+
+#########
+# TASKS #
+#########
+[tasks.bootstrap]
+cmd = "./bootstrap"
+inputs = ["configure.ac", "doc/configure.ac", "Makefile.am", "{doc,test,benchmark}/**/Makefile.am"]
+outputs = ["configure", "doc/configure", "Makefile.in", "{doc,test,benchmark}/**/*.in"]
+
+[tasks.configure]
+cmd = './configure --prefix="$CONDA_PREFIX"'
+depends-on = ["bootstrap"]
+inputs = ["configure", "./**/*.in"]
+
+[tasks.build]
+cmd = "make check TESTS="
+depends-on = ["configure"]
+
+[tasks.test]
+cmd = "make check"
+depends-on = ["build"]
+
+[tasks.clean]
+cmd = "make clean"
+depends-on = ["configure"]
+
+[tasks.compile-commands]
+cmd = "compiledb make -n check TESTS="
+depends-on = "build"
+
+[tasks.distcheck]
+cmd = "make distcheck"
+depends-on = ["configure"]
+
+[tasks.codespell]
+cmd = "codespell $(git ls-files)"
+
+[target.linux-64.tasks.compiler-warnings-clang]
+# The env hack is necessary to work around https://github.com/prefix-dev/pixi/issues/3287
+# We disable -Wdeprecated-declarations because we use our own deprecated API, e.g., for testing.
+cmd = """
+/usr/bin/env -u '?' sh -c '
+make clean &&
+make check TESTS= CPP=clang-cpp CC=clang CXX=clang++ CFLAGS=\"$CFLAGS -Werror -Wall -Wextra\" CXXFLAGS=\"$CXXFLAGS -Werror -Wall -Wextra -Wno-deprecated-declarations -UNDEBUG\" &&
+make clean &&
+make check TESTS= CPP=clang-cpp CC=clang CXX=clang++ CFLAGS=\"$CFLAGS -Werror -Wall -Wextra\" CXXFLAGS=\"$CXXFLAGS -Werror -Wall -Wextra -Wno-deprecated-declarations -fclang-abi-compat=17 -DNDEBUG\"
+'
+"""
+depends-on = "configure"
+
+[target.linux-64.tasks.compiler-warnings-gcc]
+# The env hack is necessary to work around https://github.com/prefix-dev/pixi/issues/3287
+# We disable -Wsign-compare because .size() in C++ is well-known to be broken.
+# We disable -Wdeprecated-declarations because we use our own deprecated API, e.g., for testing.
+# We disable -Wdangling-reference because our tests rely on GENERATE_REF that does actually create a dangling reference.
+cmd = """
+/usr/bin/env -u '?' sh -c '
+make clean &&
+make check TESTS= CFLAGS=\"$CXFLAGS -Werror -Wall -Wextra" CXXFLAGS=\"$CXXFLAGS -Werror -Wall -Wextra -Wno-sign-compare -Wno-deprecated-declarations -Wno-dangling-reference -UNDEBUG\" &&
+make clean &&
+make check TESTS= CFLAGS=\"$CXFLAGS -Werror -Wall -Wextra" CXXFLAGS=\"$CXXFLAGS -Werror -Wall -Wextra -Wno-sign-compare -Wno-deprecated-declarations -Wno-dangling-reference -DNDEBUG\"
+'
+"""
+depends-on = "configure"
+
+[tasks.configure-doc]
+cmd = './configure --prefix="$CONDA_PREFIX"'
+cwd = "doc"
+depends-on = ["bootstrap"]
+inputs = ["doc/configure", "doc/**/*.in"]
+
+[tasks.build-doc]
+cmd = "make"
+cwd = "doc"
+depends-on = ["configure-doc", "build"]
+
+[tasks.doc]
+cmd = """
+sh -c '
+python -m http.server $PORT --bind localhost --directory manual/generated/html &
+SERVER_PID=$!
+trap "kill $SERVER_PID" EXIT
+
+sleep 1
+
+echo "Preview the documentation at http://localhost:$PORT/"
+echo "Press Ctrl-C to continue"
+
+wait $SERVER_PID
+'
+"""
+cwd = "doc"
+depends-on = ["build-doc"]
+env = { PORT = "8880" }
+
+[tasks.test-doc-linkchecker]
+cmd = """
+sh -c '
+python -m http.server $PORT --bind localhost --directory manual/generated/html &
+SERVER_PID=$!
+trap "kill $SERVER_PID" EXIT
+
+sleep 1
+
+# Ignore broken links on gmplib.org, they seem to be rate limiting GitHub.
+linkchecker --check-extern http://localhost:$PORT/ --no-warnings --ignore gmplib.org
+'
+"""
+cwd = "doc"
+depends-on = ["build-doc"]
+env = { PORT = "8880" }
+
+################
+# DEPENDENCIES #
+################
+[dependencies]
+automake = "*"
+make = "*"
+libtool = "*"
+coreutils = "*"
+cxx-compiler = "*"
+gmp = "*"
+benchmark = "*"
+codespell = "*"
+sphinx = "7.*"
+sphinx-book-theme = "*"
+# Work around https://github.com/executablebooks/sphinx-book-theme/issues/865
+pydata-sphinx-theme= "<0.16"
+linkchecker = "*"
+breathe = ">=4.35.0"
+doxygen = "*"
+
+[target.linux.dependencies]
+# A recent functioning valgrind is only available on conda-forge linux builds.
+valgrind = "*"
