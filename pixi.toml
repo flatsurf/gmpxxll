@@ -138,20 +138,21 @@ env = { PORT = "8880" }
 ################
 [dependencies]
 automake = "*"
-make = "*"
-libtool = "*"
+benchmark = "*"
+# Work around https://github.com/executablebooks/sphinx-book-theme/issues/865
+breathe = ">=4.35.0"
+codespell = "*"
+compiledb = "*"
 coreutils = "*"
 cxx-compiler = "*"
+doxygen = "*"
 gmp = "*"
-benchmark = "*"
-codespell = "*"
+libtool = "*"
+linkchecker = "*"
+make = "*"
+pydata-sphinx-theme= "<0.16"
 sphinx = "7.*"
 sphinx-book-theme = "*"
-# Work around https://github.com/executablebooks/sphinx-book-theme/issues/865
-pydata-sphinx-theme= "<0.16"
-linkchecker = "*"
-breathe = ">=4.35.0"
-doxygen = "*"
 
 [target.linux.dependencies]
 # A recent functioning valgrind is only available on conda-forge linux builds.
