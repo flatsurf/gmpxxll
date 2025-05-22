@@ -7,6 +7,7 @@ BUILDDIR = Path(os.environ.get('ABS_BUILDDIR', '.')).absolute()
 
 project = 'gmpxxll'
 copyright = '2019-2025, the gmpxxll authors'
+author = ''
 
 release = '1.0.1'
 
