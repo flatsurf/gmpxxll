@@ -51,7 +51,7 @@ jobs:
         author_email: bot@flatsurf.org
         message: 'record asv run'
         cwd: .asv/results
-        branch: asv
+        branch: docs/asv
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ github.event_name == 'push' }}
