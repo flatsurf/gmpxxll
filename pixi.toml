@@ -141,6 +141,7 @@ env = { PORT = "8880" }
 # DEPENDENCIES #
 ################
 [dependencies]
+asv = ">=0.6.4,<0.7"
 automake = "*"
 benchmark = "*"
 # Work around https://github.com/executablebooks/sphinx-book-theme/issues/865
