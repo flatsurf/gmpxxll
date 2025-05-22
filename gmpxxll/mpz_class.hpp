@@ -1,7 +1,7 @@
 /* ********************************************************************
  *  This file is part of gmpxxll.
  *
- *        Copyright (C) 2019-2022 Julian Rüth
+ *        Copyright (C) 2019-2025 Julian Rüth
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,6 +22,7 @@
  * IN THE SOFTWARE.
  * *******************************************************************/
 
+/// @file
 /// long long support for `mpz_class`.
 /// This file provides `gmpxll::mpz_class` which inherits from the official
 /// `mpz_class` and is binary compatible with it.
@@ -67,7 +68,6 @@ namespace gmpxxll {
 /// notably Microsoft Windows, conversions actually need to take place. These
 /// conversions are probably not implemented very efficiently yet.
 class mpz_class : public ::mpz_class {
-  /// [Excluded from documentation]
   /// Helper method that turns an (unsigned) long long value into a GMP `mpz_class`.
   template <typename T>
   static ::mpz_class make(const T value) {
@@ -87,20 +87,23 @@ class mpz_class : public ::mpz_class {
  public:
   using ::mpz_class::mpz_class;
 
-  /// [Excluded from documentation]
+#ifndef DOXYGEN
   /// Support all the constructors provided by the base class.
   template <typename T>
   mpz_class(T&& value) : ::mpz_class(std::forward<T>(value)) {}
+#endif
 
-  /// ==* Constructors *==
+  /// \name mpz_class(…)
   /// Construct an `mpz_class` from an (unsigned) long long value.
   /// All the constructors provided by GMP's `mpz_class` are also available
   /// through a forwarding constructor.
+  ///@{
   mpz_class(long long value) : ::mpz_class(make(value)) {}
 
   mpz_class(unsigned long long value) : ::mpz_class(make(value)) {}
+  ///@}
 
-  /// [Excluded from documentation]
+#ifndef DOXYGEN
   /// Bring the original assignment operators back to life that have been
   /// hidden by the implicitly generated assignment operators.
   template <typename T, typename = std::enable_if_t<std::is_convertible_v<T, ::mpz_class>>>
@@ -108,10 +111,12 @@ class mpz_class : public ::mpz_class {
     ::mpz_class::operator=(std::forward<T>(rhs));
     return *this;
   }
+#endif
 
-  /// ==* Type Conversion *==
+  /// \name Type Conversion
   /// Return this integer as an (unsigned) long long value.
   /// The behaviour is undefined when the integer does not fit into an (unsigned) long long.
+  ///@{
   long long get_sll() const {
     if (fits_slong_p())
       return get_si();
@@ -133,9 +138,11 @@ class mpz_class : public ::mpz_class {
     str >> ret;
     return ret;
   }
+  ///@}
 
-  /// ==* Range Checks *==
+  /// \name Range Checks
   /// Return whether this integers is within the range of an (unsigned) long long.
+  ///@{
   bool fits_slonglong_p() const {
     return *this >= mpz_class(std::numeric_limits<long long>::min()) && *this <= mpz_class(std::numeric_limits<long long>::max());
   }
@@ -143,6 +150,7 @@ class mpz_class : public ::mpz_class {
   bool fits_ulonglong_p() const {
     return *this >= 0 && *this <= mpz_class(std::numeric_limits<unsigned long long>::max());
   }
+  ///@}
 };
 
 /// ==* Relational Operators *==

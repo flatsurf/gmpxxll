@@ -51,6 +51,7 @@ $ACTIVITIES = [
 
 $VERSION_BUMP_PATTERNS = [
     ('configure.ac', r'AC_INIT', r'AC_INIT([gmpxxll], [$VERSION], [julian.rueth@fsfe.org])'),
+    ('doc/manual/conf.py', r'release =', "release = '$VERSION'"),
 ]
 
 $CHANGELOG_FILENAME = 'ChangeLog'
