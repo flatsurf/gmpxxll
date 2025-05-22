@@ -10,6 +10,14 @@ AM_INIT_AUTOMAKE([1.14.1 tar-pax foreign])
 
 AC_CANONICAL_HOST
 
+case "${host_os}" in
+  linux*) OS_LINUX=yes ;;
+  darwin*) OS_MACOS=yes ;;
+esac
+
+AM_CONDITIONAL([OS_LINUX], [test x$OS_LINUX = xyes])
+AM_CONDITIONAL([OS_MACOS], [test x$OS_MACOS = xyes])
+
 dnl Find C++ Compiler
 AC_PROG_CXX
 
