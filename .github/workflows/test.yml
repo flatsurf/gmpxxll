@@ -29,6 +29,6 @@ jobs:
           sudo apt install -y libc6-dbg
         if: endsWith(matrix.task || '', 'valgrind')
       - name: run ${{ matrix.task }}
-        run: pixi run -e ${{ matrix.environment }} ${{ matrix.task }}
+        run: pixi run ${{ matrix.task }}
       - uses: flatsurf/actions/show-logs@main
         if: ${{ always() }}
