@@ -51,7 +51,7 @@ jobs:
         author_email: bot@flatsurf.org
         message: 'record asv run'
         cwd: .asv/results
-        branch: docs/asv
+        branch: asv
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ github.event_name == 'push' }}
@@ -59,7 +59,7 @@ jobs:
       with:
         branch: gh-pages
         folder: .asv/html
-        target-folder: asv
+        target-folder: docs/asv
       if: ${{ github.event_name == 'push' }}
     - uses: flatsurf/actions/show-logs@main
       if: ${{ always() }}
