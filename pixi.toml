@@ -53,6 +53,7 @@ depends-on = "build"
 
 [tasks.test-valgrind]
 cmd = "make check-valgrind"
+cwd = "test"
 depends-on = ["build"]
 
 [tasks.distcheck]
