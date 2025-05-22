@@ -51,6 +51,10 @@ depends-on = ["configure"]
 cmd = "compiledb make -n check TESTS="
 depends-on = "build"
 
+[tasks.test-valgrind]
+cmd = "make check-valgrind"
+depends-on = ["build"]
+
 [tasks.distcheck]
 cmd = "make distcheck"
 depends-on = ["configure"]
