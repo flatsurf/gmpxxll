@@ -14,10 +14,12 @@ jobs:
       matrix:
         include:
         - { task: "test", on: "ubuntu-24.04" }
-        - { task: "test", on: "macos-13" }
+        - { task: "test", on: "macos-15" }
+        - { task: "test", on: "macos-15-intel" }
         - { task: "test-valgrind", on: "ubuntu-24.04" }
         - { task: "distcheck", on: "ubuntu-24.04" }
-        - { task: "distcheck", on: "macos-13" }
+        - { task: "distcheck", on: "macos-15" }
+        - { task: "distcheck", on: "macos-15-intel" }
     steps:
       - uses: actions/checkout@v6
         with: { submodules: recursive }
