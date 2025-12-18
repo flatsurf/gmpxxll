@@ -1,11 +1,11 @@
 # This file describes the [pixi](https://pixi.sh) interface to gmpxxll, see the
 # README for how to use pixi with gmpxxll.
 
-[project]
+[workspace]
 channels = ["conda-forge"]
 description = "long long support for GMP's C++ Interface"
 name = "gmpxxll"
-platforms = ["linux-64", "osx-64"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
 
 [environments]
 env-coverage = ["coverage"]
